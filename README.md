@@ -6,9 +6,6 @@ Built using React, Node.js, and MySQL, ZenAudit AI focuses on helping startups r
 
 ---
 
-## 🚀 Live Demo
-
-🔗 https://your-deployment-link.com
 
 ---
 
@@ -361,4 +358,4 @@ This repository also includes:
 - LANDING_COPY.md
 - METRICS.md
 
-Prepared as part of the Credex Web Development Internship Assignment. :contentReference[oaicite:0]{index=0}
+Prepared as part of the Credex Web Development Internship Assignment. 
