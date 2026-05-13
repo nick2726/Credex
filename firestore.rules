@@ -1,0 +1,42 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Global Helpers
+    function isSignedIn() { return request.auth != null; }
+    function isValidId(id) { return id is string && id.size() >= 1 && id.size() <= 128; }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+
+    // Audit Validations
+    function isValidAudit(data) {
+      return data.keys().hasAll(['stack', 'results', 'createdAt']) &&
+             data.stack is map &&
+             data.results is map &&
+             data.createdAt == request.time;
+    }
+
+    match /audits/{auditId} {
+      allow read: if isValidId(auditId); // Publicly readable for sharing
+      allow create: if isValidId(auditId) && isValidAudit(incoming());
+      allow update: if isValidId(auditId) && 
+                      incoming().diff(existing()).affectedKeys().hasOnly(['leadCaptured', 'capturedAt']) &&
+                      incoming().capturedAt == request.time;
+    }
+
+    match /leads/{leadId} {
+      allow create: if isValidId(leadId) && 
+                      incoming().keys().hasAll(['email', 'auditId', 'createdAt']) &&
+                      incoming().createdAt == request.time &&
+                      incoming().email is string && incoming().email.size() <= 256;
+      // No read access for leads through client SDK for security
+      allow read, update, delete: if false;
+    }
+  }
+}

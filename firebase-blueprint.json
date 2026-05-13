@@ -1,0 +1,40 @@
+{
+  "entities": {
+    "Audit": {
+      "title": "AI Audit Result",
+      "description": "The result of an AI spend audit.",
+      "type": "object",
+      "properties": {
+        "stack": { "type": "object" },
+        "results": { "type": "object" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "public": { "type": "boolean" },
+        "leadCaptured": { "type": "boolean" }
+      },
+      "required": ["stack", "results", "createdAt"]
+    },
+    "Lead": {
+      "title": "Captured Lead",
+      "description": "User lead information for Credex follow-up.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "company": { "type": "string" },
+        "auditId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "source": { "type": "string" }
+      },
+      "required": ["email", "auditId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/audits/{auditId}": {
+      "schema": "Audit",
+      "description": "Stored audit results for sharing."
+    },
+    "/leads/{leadId}": {
+      "schema": "Lead",
+      "description": "Captured leads from the audit tool."
+    }
+  }
+}
