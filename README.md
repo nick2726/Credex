@@ -4,26 +4,7 @@ ZenAudit AI is a full-stack AI spend optimization platform that helps startups, 
 
 Built using React, Node.js, and MySQL, ZenAudit AI focuses on helping startups reduce AI burn while improving operational efficiency and governance.
 
----
 
-
----
-
-## 📸 Screenshots
-
-### Landing Page
-
-![Landing Page](./screenshots/landing-page.png)
-
-### AI Stack Audit Form
-
-![Audit Form](./screenshots/audit-form.png)
-
-### Audit Results Dashboard
-
-![Audit Results](./screenshots/audit-results.png)
-
----
 
 ## ✨ Features
 
